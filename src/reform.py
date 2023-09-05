@@ -15,10 +15,14 @@ def nl_at_end(code):
 def reform(tokens):
     indent_level = 0
     in_for = False
+    in_include = False
     multi_nl = False
     generated_code = ''
     for i, token in enumerate(tokens[:-1]):
+        if token[1] == 'hash' and (i == 0 or tokens[i-1][1] == 'newline') and tokens[i+1][1] == 'word' and tokens[i+1][0] == 'include':
+            in_include = True
         if token[1] == 'newline':
+            in_include = False
             if multi_nl or not nl_at_end(generated_code):
                 generated_code += '\n'
                 generated_code += '    '*indent_level
@@ -54,6 +58,10 @@ def reform(tokens):
         if token[1] == "minus" and tokens[i+1][1] == "equal":
             generated_code += ' '
         generated_code += token[0]
+        if in_include:
+            if token[1] == 'word' and token[0] == 'include':
+                generated_code += ' '
+            continue
         if token[1] == "word" and tokens[i+1][1] == "word":
             generated_code += ' '
         elif token[1] == "word" and tokens[i+1][1] == "string":
