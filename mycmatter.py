@@ -10,8 +10,7 @@ parser = OptionParser()
 # parser.add_option("-d", "--debug", dest="debug", default=False, action="store_true", help="Debug mode")
 parser.add_option("-o", "--output", dest="output", default="stdout", help="Output file")
 parser.add_option("-i", "--input", dest="input", default="example.c", help="Input file")
-parser.add_option("-m", "--mode", dest="mode", default="full", help="Mode of analysis", choices=["lite", "full"])
-parser.add_option("-s", "--codestyle", dest="codestyle", default="compact", help="Code style", choices=["compact", "aerial"])
+parser.add_option("-n", "--nlmode", dest="nlmode", default="keep", help="Newline mode", choices=["keep", "compact", "aerial"])
 parser.add_option("-v", "--verbose", dest="verbose", default=False, action="store_true", help="Verbose mode")
 
 options = parser.parse_args()[0]
